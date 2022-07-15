@@ -25,7 +25,7 @@ export function Home() {
 
   return (
     <div>
-      <div className="flex p-10 pb-0 gap-[60px]">
+      <div className="flex flex-col lg:flex-row p-10 pb-0 gap-[60px]">
         <div className="min-w-fit flex flex-col gap-[30px]">
           <div>
             <Card>
@@ -61,7 +61,7 @@ export function Home() {
           <div>
             <Card>
               <h1 className="text-xl leading-[25px] font-bold ml-[-10px]">Tecnologias</h1>
-              <div className="grid grid-cols-3 gap-[15px] mt-5">
+              <div className="grid grid-cols-3 justify-items-center gap-[15px] mt-5">
                 <Badge text="javascript" />
                 <Badge text="reactjs" />
                 <Badge text="nodejs" />
