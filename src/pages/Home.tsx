@@ -11,6 +11,9 @@ import { Globe } from '../components/Globe';
 import { Mail } from '../components/Mail';
 import { LinkCardItem } from '../components/LinkCardItem';
 import { Badge } from '../components/Badge';
+import { Folder } from '../components/Folder';
+import { Star } from '../components/Star';
+import { GitBranch } from '../components/GitBranch';
 
 export function Home() {
   // useEffect(() => {
@@ -150,26 +153,123 @@ export function Home() {
           <div className="flex gap-[30px] justify-center">
             <div className="w-fill">
               <Card>
-                <p></p>
+                <div className="flex flex-col gap-[22px]">
+                  <div className="flex items-center">
+                    <div>
+                      <Folder />
+                    </div>
+                    <strong className="text-base leading-5 font-bold ml-4">my-onix</strong>
+                  </div>
+
+                  <div className="text-sm leading-5 font-normal">
+                    <p>Consulte os códigos de erro que aparecem no painel do veículo Onix.</p>
+                  </div>
+
+                  <div className="flex justify-between gap-4">
+                    <div className="flex gap-4">
+                      <div className="flex items-center">
+                        <div>
+                          <Star />
+                        </div>
+                        <span className="text-[13px] leading-4 font-normal ml-2">100</span>
+                      </div>
+
+                      <div className="flex items-center">
+                        <div>
+                          <GitBranch />
+                        </div>
+                        <span className="text-[13px] leading-4 font-normal ml-2">100</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center">
+                      <div className="h-[15px] w-[15px] bg-yellow-300 rounded-full border-2"></div>
+                      <span className="font-normal text-sm leading-[18px] ml-2">JavaScript</span>
+                    </div>
+                  </div>
+                </div>
               </Card>
             </div>
 
             <div className="w-fill">
               <Card>
-                <p></p>
+                <div className="flex flex-col gap-[22px]">
+                  <div className="flex items-center">
+                    <div>
+                      <Folder />
+                    </div>
+                    <strong className="text-base leading-5 font-bold ml-4">my-onix</strong>
+                  </div>
+
+                  <div className="text-sm leading-5 font-normal">
+                    <p>Consulte os códigos de erro que aparecem no painel do veículo Onix.</p>
+                  </div>
+
+                  <div className="flex justify-between gap-4">
+                    <div className="flex gap-4">
+                      <div className="flex items-center">
+                        <div>
+                          <Star />
+                        </div>
+                        <span className="text-[13px] leading-4 font-normal ml-2">100</span>
+                      </div>
+
+                      <div className="flex items-center">
+                        <div>
+                          <GitBranch />
+                        </div>
+                        <span className="text-[13px] leading-4 font-normal ml-2">100</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center">
+                      <div className="h-[15px] w-[15px] bg-yellow-300 rounded-full border-2"></div>
+                      <span className="font-normal text-sm leading-[18px] ml-2">JavaScript</span>
+                    </div>
+                  </div>
+                </div>
               </Card>
             </div>
           </div>
 
           <div>
             <Card>
-              <h1>Recent Posts</h1>
+              <div className="flex items-center">
+                <h1 className="font-bold text-xl leading-[25px]">Recent Posts</h1>
+              </div>
             </Card>
           </div>
 
           <div>
             <Card>
-              <h1>Post</h1>
+              <div className="flex pb-3 gap-5">
+                <img
+                  className="rounded-full max-h-32 max-w-32"
+                  src="https://avatars.githubusercontent.com/u/22185823?v=4"
+                  // src="https://avatars.githubusercontent.com/u/90021751?v=4"
+                  alt="profile picture"
+                />
+
+                <div className="flex flex-col gap-7">
+                  <div className="flex flex-col">
+                    <span className="font-bold text-lg leading-[23px] min-h-[31px]">
+                      {'Erro adb devices no Genymotion e Android Studio (React Native)'}
+                    </span>
+                    <span className="font-normal text-sm leading-[18px]">2 anos atrás</span>
+                  </div>
+
+                  <div className="flex flex-col gap-[11px]">
+                    <span className="font-normal text-base leading-5">{'Erro adb devices no Genymotion e Android Studio (React Native)'}</span>
+
+                    <div className="flex gap-[10px] text-sm leading-[18px] font-normal whitespace-nowrap">
+                      <span>#react-native</span>
+                      <span>#genimotion</span>
+                      <span>#genimotion</span>
+                      <span>#genimotion</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </Card>
           </div>
         </div>
