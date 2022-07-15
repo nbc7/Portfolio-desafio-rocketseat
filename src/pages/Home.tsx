@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Briefcase, Folder, GitBranch, Github, Globe, Instagram, LinkedIn, Mail, MapPin, Star, Twitter } from '../components/Icons';
@@ -6,13 +6,54 @@ import { Card } from '../components/Card';
 import { LinkCardItem } from '../components/LinkCardItem';
 import { Badge } from '../components/Badge';
 
+interface ProfileData {
+  login: string;
+  id: number;
+  node_id: string;
+  avatar_url: string;
+  gravatar_id: string;
+  url: string;
+  html_url: string;
+  followers_url: string;
+  following_url: string;
+  gists_url: string;
+  starred_url: string;
+  subscriptions_url: string;
+  organizations_url: string;
+  repos_url: string;
+  events_url: string;
+  received_events_url: string;
+  type: string;
+  site_admin: boolean;
+  name: string;
+  company: string;
+  blog: string;
+  location: string;
+  email?: any;
+  hireable?: any;
+  bio: string;
+  twitter_username: string;
+  public_repos: number;
+  public_gists: number;
+  followers: number;
+  following: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
 export function Home() {
-  // useEffect(() => {
-  //   axios.get('https://api.github.com/users/nbc7').then((p) => {
-  //     const profile = p.data;
-  //     console.log(profile);
-  //   });
-  // }, []);
+  const [profile, setProfile] = useState<ProfileData | null>(null);
+
+  useEffect(() => {
+    handleProfile();
+  }, []);
+
+  const handleProfile = async () => {
+    const p = await axios.get<ProfileData>('https://api.github.com/users/birobirobiro');
+    // const p = await axios.get('https://api.github.com/users/nbc7');
+    setProfile(p.data);
+    console.log(p.data);
+  };
 
   return (
     <div>
