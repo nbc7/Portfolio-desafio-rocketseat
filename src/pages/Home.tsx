@@ -150,7 +150,7 @@ export function Home() {
             </Card>
           </div>
 
-          <div className="flex gap-[30px] justify-center">
+          <div className="flex flex-wrap sm:flex-nowrap gap-[30px] justify-center">
             <div className="w-fill">
               <Card>
                 <div className="flex flex-col gap-[22px]">
@@ -165,8 +165,8 @@ export function Home() {
                     <p>Consulte os códigos de erro que aparecem no painel do veículo Onix.</p>
                   </div>
 
-                  <div className="flex justify-between gap-4">
-                    <div className="flex gap-4">
+                  <div className="flex flex-wrap justify-between gap-4">
+                    <div className="flex flex-wrap gap-4">
                       <div className="flex items-center">
                         <div>
                           <Star />
@@ -205,8 +205,8 @@ export function Home() {
                     <p>Consulte os códigos de erro que aparecem no painel do veículo Onix.</p>
                   </div>
 
-                  <div className="flex justify-between gap-4">
-                    <div className="flex gap-4">
+                  <div className="flex flex-wrap justify-between gap-4">
+                    <div className="flex flex-wrap gap-4">
                       <div className="flex items-center">
                         <div>
                           <Star />
@@ -242,7 +242,7 @@ export function Home() {
 
           <div>
             <Card>
-              <div className="flex pb-3 gap-5">
+              <div className="flex flex-wrap sm:flex-nowrap pb-3 gap-5">
                 <img
                   className="rounded-full max-h-32 max-w-32"
                   src="https://avatars.githubusercontent.com/u/22185823?v=4"
@@ -261,8 +261,10 @@ export function Home() {
                   <div className="flex flex-col gap-[11px]">
                     <span className="font-normal text-base leading-5">{'Erro adb devices no Genymotion e Android Studio (React Native)'}</span>
 
-                    <div className="flex gap-[10px] text-sm leading-[18px] font-normal whitespace-nowrap">
+                    <div className="flex flex-wrap gap-[10px] text-sm leading-[18px] font-normal whitespace-nowrap">
                       <span>#react-native</span>
+                      <span>#genimotion</span>
+                      <span>#genimotion</span>
                       <span>#genimotion</span>
                       <span>#genimotion</span>
                       <span>#genimotion</span>
