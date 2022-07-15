@@ -1,19 +1,10 @@
 import { useEffect } from 'react';
 import axios from 'axios';
-import { Card } from '../components/Card';
 import { Link } from 'react-router-dom';
-import { MapPin } from '../components/MapPin';
-import { Briefcase } from '../components/Briefcase';
-import { Github } from '../components/Github';
-import { LinkedIn } from '../components/LinkedIn';
-import { Twitter } from '../components/Twitter';
-import { Globe } from '../components/Globe';
-import { Mail } from '../components/Mail';
+import { Briefcase, Folder, GitBranch, Github, Globe, Instagram, LinkedIn, Mail, MapPin, Star, Twitter } from '../components/Icons';
+import { Card } from '../components/Card';
 import { LinkCardItem } from '../components/LinkCardItem';
 import { Badge } from '../components/Badge';
-import { Folder } from '../components/Folder';
-import { Star } from '../components/Star';
-import { GitBranch } from '../components/GitBranch';
 
 export function Home() {
   // useEffect(() => {
@@ -52,6 +43,7 @@ export function Home() {
                 <LinkCardItem icon={<Github />} text="birobirobiro" />
                 <LinkCardItem icon={<LinkedIn />} text="joao-inacio-neto" />
                 <LinkCardItem icon={<Twitter />} text="birobirobiro" />
+                <LinkCardItem icon={<Instagram />} text="birobirobiro" />
                 <LinkCardItem icon={<Globe />} text="https://birobirobiro.dev" />
                 <LinkCardItem icon={<Mail />} text="birobirobiro.dev@gmail.com" />
               </div>
