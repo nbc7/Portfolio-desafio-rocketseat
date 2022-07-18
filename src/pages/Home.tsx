@@ -25,71 +25,98 @@ interface ProfileData {
   received_events_url: string;
   type: string;
   site_admin: boolean;
-  name: string;
-  company: string;
+  name?: string;
+  company?: string;
   blog: string;
   location: string;
-  email?: any;
+  email: string;
   hireable?: any;
   bio: string;
-  twitter_username: string;
+  twitter_username?: string;
   public_repos: number;
   public_gists: number;
   followers: number;
   following: number;
   created_at: Date;
   updated_at: Date;
+  private_gists: number;
+  total_private_repos: number;
+  owned_private_repos: number;
+  disk_usage: number;
+  collaborators: number;
+  two_factor_authentication: boolean;
+  plan: { name: string; space: number; collaborators: number; private_repos: number };
 }
+
+// interface EmailData {
+//   email: string;
+//   primary: boolean;
+//   verified: boolean;
+//   visibility: string;
+// }
 
 export function Home() {
   const [profile, setProfile] = useState<ProfileData | null>(null);
+  // const [email, setEmail] = useState<EmailData | null>(null);
 
   useEffect(() => {
     handleProfile();
   }, []);
 
   const handleProfile = async () => {
-    const p = await axios.get<ProfileData>('https://api.github.com/users/birobirobiro');
-    // const p = await axios.get('https://api.github.com/users/nbc7');
-    setProfile(p.data);
-    console.log(p.data);
+    const config = {
+      headers: { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` },
+    };
+    const user = await axios.get<ProfileData>('https://api.github.com/users/birobirobiro', config);
+    // const user = await axios.get('https://api.github.com/user', config);
+    // const emails = await axios.get('https://api.github.com/user/emails', config);
+    const repos = await axios.get('https://api.github.com/users/birobirobiro/repos', config);
+    // const repos = await axios.get('https://api.github.com/user/repos', config);
+
+    // const e = emails.data.filter((e: EmailData) => {
+    //   if (e.primary && e.visibility == 'public') return e.email;
+    // })[0];
+
+    setProfile(user.data);
+    // setEmail(e);
+    console.log(user.data);
+    console.log(repos.data);
   };
 
   return (
     <div>
       <div className="flex flex-col lg:flex-row p-10 pb-0 gap-[60px]">
         <div className="min-w-fit flex flex-col gap-[30px]">
-          <div>
-            <Card>
-              <div className="flex flex-col items-center pb-[19px] px-[46px]">
-                <div className="p-[2px]">
-                  <img
-                    className="rounded-full border-2 border-green-500 max-h-32 max-w-32"
-                    src="https://avatars.githubusercontent.com/u/22185823?v=4"
-                    // src="https://avatars.githubusercontent.com/u/90021751?v=4"
-                    alt="profile picture"
-                  />
-                </div>
-                <strong className="font-bold text-[23px] leading-[29px] mt-7">João Inácio Neto</strong>
-                <strong className="font-light text-[13px] leading-4 mt-[10px]">Full Stack Developer</strong>
+          {profile && (
+            <>
+              <div>
+                <Card>
+                  <div className="flex flex-col items-center pb-[19px] px-[46px]">
+                    <div className="p-[2px]">
+                      <img className="rounded-full border-2 border-green-500 max-h-32 max-w-32" src={profile.avatar_url} alt="profile picture" />
+                    </div>
+                    <strong className="font-bold text-[23px] leading-[29px] mt-7">{profile.name}</strong>
+                    <strong className="font-light text-[13px] leading-4 mt-[10px]">{profile.bio}</strong>
+                  </div>
+                </Card>
               </div>
-            </Card>
-          </div>
 
-          <div>
-            <Card>
-              <div className="flex flex-col gap-5">
-                <LinkCardItem icon={<MapPin />} text="Brasil" />
-                <LinkCardItem icon={<Briefcase />} text="Rocketseat" />
-                <LinkCardItem icon={<Github />} text="birobirobiro" />
-                <LinkCardItem icon={<LinkedIn />} text="joao-inacio-neto" />
-                <LinkCardItem icon={<Twitter />} text="birobirobiro" />
-                <LinkCardItem icon={<Instagram />} text="birobirobiro" />
-                <LinkCardItem icon={<Globe />} text="https://birobirobiro.dev" />
-                <LinkCardItem icon={<Mail />} text="birobirobiro.dev@gmail.com" />
+              <div>
+                <Card>
+                  <div className="flex flex-col gap-5">
+                    {profile.location && <LinkCardItem icon={<MapPin />} text={profile.location} />}
+                    {profile.company && <LinkCardItem icon={<Briefcase />} text={profile.company} />}
+                    {profile.login && <LinkCardItem icon={<Github />} text={profile.login} />}
+                    {/* <LinkCardItem icon={<LinkedIn />} text="joao-inacio-neto" /> */}
+                    {profile.twitter_username && <LinkCardItem icon={<Twitter />} text={profile.twitter_username} />}
+                    {/* <LinkCardItem icon={<Instagram />} text="birobirobiro" /> */}
+                    {profile.blog && <LinkCardItem icon={<Globe />} text={profile.blog} />}
+                    {profile.email && <LinkCardItem icon={<Mail />} text={profile.email} />}
+                  </div>
+                </Card>
               </div>
-            </Card>
-          </div>
+            </>
+          )}
 
           <div>
             <Card>
