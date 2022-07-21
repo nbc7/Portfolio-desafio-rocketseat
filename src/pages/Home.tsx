@@ -5,6 +5,8 @@ import { Briefcase, Folder, GitBranch, Github, Globe, Instagram, LinkedIn, Mail,
 import { Card } from '../components/Card';
 import { LinkCardItem } from '../components/LinkCardItem';
 import { Badge } from '../components/Badge';
+import { gql, useQuery } from '@apollo/client';
+import { useGetGithubApiQuery } from '../graphql/generated';
 
 interface ProfileData {
   login: string;
@@ -55,23 +57,51 @@ interface ProfileData {
 //   visibility: string;
 // }
 
+interface Query {
+  data: {
+    viewer: {
+      login: string;
+      name: string;
+      company: boolean;
+      email: string;
+      twitterUsername: boolean;
+      location: string;
+      bio: string;
+      avatarUrl: string;
+      websiteUrl: boolean;
+      pinnedItems: {
+        nodes: [
+          {
+            id: string;
+            name: string;
+            description: boolean;
+            forkCount: number;
+            stargazerCount: number;
+            primaryLanguage: {
+              name: string;
+              color: string;
+            };
+          }
+        ];
+      };
+    };
+  };
+}
+
 export function Home() {
   const [profile, setProfile] = useState<ProfileData | null>(null);
   // const [email, setEmail] = useState<EmailData | null>(null);
-
-  useEffect(() => {
-    handleProfile();
-  }, []);
+  const { data } = useGetGithubApiQuery();
 
   const handleProfile = async () => {
     const config = {
       headers: { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` },
     };
-    const user = await axios.get<ProfileData>('https://api.github.com/users/birobirobiro', config);
-    // const user = await axios.get('https://api.github.com/user', config);
+    // const user = await axios.get<ProfileData>('https://api.github.com/users/birobirobiro', config);
+    const user = await axios.get('https://api.github.com/user', config);
     // const emails = await axios.get('https://api.github.com/user/emails', config);
-    const repos = await axios.get('https://api.github.com/users/birobirobiro/repos', config);
-    // const repos = await axios.get('https://api.github.com/user/repos', config);
+    // const repos = await axios.get('https://api.github.com/users/birobirobiro/repos', config);
+    const repos = await axios.get('https://api.github.com/user/repos', config);
 
     // const e = emails.data.filter((e: EmailData) => {
     //   if (e.primary && e.visibility == 'public') return e.email;
@@ -81,7 +111,12 @@ export function Home() {
     // setEmail(e);
     console.log(user.data);
     console.log(repos.data);
+    console.log(data?.viewer);
   };
+
+  useEffect(() => {
+    handleProfile();
+  }, []);
 
   return (
     <div>
@@ -210,8 +245,55 @@ export function Home() {
             </Card>
           </div>
 
-          <div className="flex flex-wrap sm:flex-nowrap gap-[30px] justify-center">
-            <div className="w-fill">
+          {data && (
+            <div className="flex flex-wrap sm:flex-nowrap gap-[30px] justify-center">
+              {data.viewer.pinnedItems.nodes?.map((item) => {
+                if (item?.__typename !== 'Repository') return;
+                if (item.primaryLanguage?.__typename !== 'Language') return;
+
+                return (
+                  <div className="w-fill" key={item.id}>
+                    <Card>
+                      <div className="flex flex-col gap-[22px]">
+                        <div className="flex items-center">
+                          <div>
+                            <Folder />
+                          </div>
+                          <strong className="text-base leading-5 font-bold ml-4">{item.name}</strong>
+                        </div>
+
+                        <div className="text-sm leading-5 font-normal">
+                          <p>{item.description}</p>
+                        </div>
+
+                        <div className="flex flex-wrap justify-between gap-4">
+                          <div className="flex flex-wrap gap-4">
+                            <div className="flex items-center">
+                              <div>
+                                <Star />
+                              </div>
+                              <span className="text-[13px] leading-4 font-normal ml-2">{item.stargazerCount}</span>
+                            </div>
+
+                            <div className="flex items-center">
+                              <div>
+                                <GitBranch />
+                              </div>
+                              <span className="text-[13px] leading-4 font-normal ml-2">{item.forkCount}</span>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center">
+                            <div className={`h-[15px] w-[15px] bg-[${item.primaryLanguage.color}] rounded-full border-2`}></div>
+                            <span className="font-normal text-sm leading-[18px] ml-2">{item.primaryLanguage.name}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+                );
+              })}
+              {/* <div className="w-fill">
               <Card>
                 <div className="flex flex-col gap-[22px]">
                   <div className="flex items-center">
@@ -289,8 +371,9 @@ export function Home() {
                   </div>
                 </div>
               </Card>
+            </div> */}
             </div>
-          </div>
+          )}
 
           <div>
             <Card>
@@ -338,7 +421,7 @@ export function Home() {
       </div>
 
       <div className="p-5 text-center">
-        <p className="text-sm leading-5">Feito com 💜 por birobirobiro</p>
+        <p className="text-sm leading-5">Feito com 💜 por {profile?.login}</p>
       </div>
     </div>
   );
