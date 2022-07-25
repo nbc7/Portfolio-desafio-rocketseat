@@ -89,9 +89,10 @@ interface Query {
 }
 
 export function Home() {
-  const [profile, setProfile] = useState<ProfileData | null>(null);
-  // const [email, setEmail] = useState<EmailData | null>(null);
+  // const [profile, setProfile] = useState<ProfileData | null>(null);
   const { data } = useGetGithubApiQuery();
+  const profile = data?.viewer;
+  console.log(data?.viewer);
 
   const handleProfile = async () => {
     const config = {
@@ -99,19 +100,12 @@ export function Home() {
     };
     // const user = await axios.get<ProfileData>('https://api.github.com/users/birobirobiro', config);
     const user = await axios.get('https://api.github.com/user', config);
-    // const emails = await axios.get('https://api.github.com/user/emails', config);
     // const repos = await axios.get('https://api.github.com/users/birobirobiro/repos', config);
     const repos = await axios.get('https://api.github.com/user/repos', config);
 
-    // const e = emails.data.filter((e: EmailData) => {
-    //   if (e.primary && e.visibility == 'public') return e.email;
-    // })[0];
-
-    setProfile(user.data);
-    // setEmail(e);
+    // setProfile(user.data);
     console.log(user.data);
     console.log(repos.data);
-    console.log(data?.viewer);
   };
 
   useEffect(() => {
@@ -128,7 +122,7 @@ export function Home() {
                 <Card>
                   <div className="flex flex-col items-center pb-[19px] px-[46px]">
                     <div className="p-[2px]">
-                      <img className="rounded-full border-2 border-green-500 max-h-32 max-w-32" src={profile.avatar_url} alt="profile picture" />
+                      <img className="rounded-full border-2 border-green-500 max-h-32 max-w-32" src={profile.avatarUrl} alt="profile picture" />
                     </div>
                     <strong className="font-bold text-[23px] leading-[29px] mt-7">{profile.name}</strong>
                     <strong className="font-light text-[13px] leading-4 mt-[10px]">{profile.bio}</strong>
@@ -143,9 +137,9 @@ export function Home() {
                     {profile.company && <LinkCardItem icon={<Briefcase />} text={profile.company} />}
                     {profile.login && <LinkCardItem icon={<Github />} text={profile.login} />}
                     {/* <LinkCardItem icon={<LinkedIn />} text="joao-inacio-neto" /> */}
-                    {profile.twitter_username && <LinkCardItem icon={<Twitter />} text={profile.twitter_username} />}
+                    {profile.twitterUsername && <LinkCardItem icon={<Twitter />} text={profile.twitterUsername} />}
                     {/* <LinkCardItem icon={<Instagram />} text="birobirobiro" /> */}
-                    {profile.blog && <LinkCardItem icon={<Globe />} text={profile.blog} />}
+                    {profile.websiteUrl && <LinkCardItem icon={<Globe />} text={profile.websiteUrl} />}
                     {profile.email && <LinkCardItem icon={<Mail />} text={profile.email} />}
                   </div>
                 </Card>
@@ -245,135 +239,56 @@ export function Home() {
             </Card>
           </div>
 
-          {data && (
-            <div className="flex flex-wrap sm:flex-nowrap gap-[30px] justify-center">
-              {data.viewer.pinnedItems.nodes?.map((item) => {
-                if (item?.__typename !== 'Repository') return;
-                if (item.primaryLanguage?.__typename !== 'Language') return;
+          {/* <div className="flex flex-wrap sm:flex-nowrap gap-[30px] justify-center"> */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[30px] justify-center">
+            {data?.viewer.pinnedItems.nodes?.map((item) => {
+              if (item?.__typename !== 'Repository') return;
+              if (item.primaryLanguage?.__typename !== 'Language') return;
+              if (typeof item.primaryLanguage.color !== 'string') return;
 
-                return (
-                  <div className="w-fill" key={item.id}>
-                    <Card>
-                      <div className="flex flex-col gap-[22px]">
-                        <div className="flex items-center">
-                          <div>
-                            <Folder />
-                          </div>
-                          <strong className="text-base leading-5 font-bold ml-4">{item.name}</strong>
+              return (
+                <div className="w-fill" key={item.id}>
+                  <Card>
+                    <div className="flex flex-col gap-[22px]">
+                      <div className="flex items-center">
+                        <div>
+                          <Folder />
                         </div>
+                        <strong className="text-base leading-5 font-bold ml-4">{item.name}</strong>
+                      </div>
 
-                        <div className="text-sm leading-5 font-normal">
-                          <p>{item.description}</p>
-                        </div>
+                      <div className="text-sm leading-5 font-normal">
+                        <p>{item.description}</p>
+                      </div>
 
-                        <div className="flex flex-wrap justify-between gap-4">
-                          <div className="flex flex-wrap gap-4">
-                            <div className="flex items-center">
-                              <div>
-                                <Star />
-                              </div>
-                              <span className="text-[13px] leading-4 font-normal ml-2">{item.stargazerCount}</span>
+                      <div className="flex flex-wrap justify-between gap-4">
+                        <div className="flex flex-wrap gap-4">
+                          <div className="flex items-center">
+                            <div>
+                              <Star />
                             </div>
-
-                            <div className="flex items-center">
-                              <div>
-                                <GitBranch />
-                              </div>
-                              <span className="text-[13px] leading-4 font-normal ml-2">{item.forkCount}</span>
-                            </div>
+                            <span className="text-[13px] leading-4 font-normal ml-2">{item.stargazerCount}</span>
                           </div>
 
                           <div className="flex items-center">
-                            <div className={`h-[15px] w-[15px] bg-[${item.primaryLanguage.color}] rounded-full border-2`}></div>
-                            <span className="font-normal text-sm leading-[18px] ml-2">{item.primaryLanguage.name}</span>
+                            <div>
+                              <GitBranch />
+                            </div>
+                            <span className="text-[13px] leading-4 font-normal ml-2">{item.forkCount}</span>
                           </div>
                         </div>
-                      </div>
-                    </Card>
-                  </div>
-                );
-              })}
-              {/* <div className="w-fill">
-              <Card>
-                <div className="flex flex-col gap-[22px]">
-                  <div className="flex items-center">
-                    <div>
-                      <Folder />
-                    </div>
-                    <strong className="text-base leading-5 font-bold ml-4">my-onix</strong>
-                  </div>
 
-                  <div className="text-sm leading-5 font-normal">
-                    <p>Consulte os códigos de erro que aparecem no painel do veículo Onix.</p>
-                  </div>
-
-                  <div className="flex flex-wrap justify-between gap-4">
-                    <div className="flex flex-wrap gap-4">
-                      <div className="flex items-center">
-                        <div>
-                          <Star />
+                        <div className="flex items-center">
+                          <div className={`h-[15px] w-[15px] rounded-full border-2`} style={{ backgroundColor: item.primaryLanguage.color }}></div>
+                          <span className="font-normal text-sm leading-[18px] ml-2">{item.primaryLanguage.name}</span>
                         </div>
-                        <span className="text-[13px] leading-4 font-normal ml-2">100</span>
-                      </div>
-
-                      <div className="flex items-center">
-                        <div>
-                          <GitBranch />
-                        </div>
-                        <span className="text-[13px] leading-4 font-normal ml-2">100</span>
                       </div>
                     </div>
-
-                    <div className="flex items-center">
-                      <div className="h-[15px] w-[15px] bg-yellow-300 rounded-full border-2"></div>
-                      <span className="font-normal text-sm leading-[18px] ml-2">JavaScript</span>
-                    </div>
-                  </div>
+                  </Card>
                 </div>
-              </Card>
-            </div>
-
-            <div className="w-fill">
-              <Card>
-                <div className="flex flex-col gap-[22px]">
-                  <div className="flex items-center">
-                    <div>
-                      <Folder />
-                    </div>
-                    <strong className="text-base leading-5 font-bold ml-4">my-onix</strong>
-                  </div>
-
-                  <div className="text-sm leading-5 font-normal">
-                    <p>Consulte os códigos de erro que aparecem no painel do veículo Onix.</p>
-                  </div>
-
-                  <div className="flex flex-wrap justify-between gap-4">
-                    <div className="flex flex-wrap gap-4">
-                      <div className="flex items-center">
-                        <div>
-                          <Star />
-                        </div>
-                        <span className="text-[13px] leading-4 font-normal ml-2">100</span>
-                      </div>
-
-                      <div className="flex items-center">
-                        <div>
-                          <GitBranch />
-                        </div>
-                        <span className="text-[13px] leading-4 font-normal ml-2">100</span>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center">
-                      <div className="h-[15px] w-[15px] bg-yellow-300 rounded-full border-2"></div>
-                      <span className="font-normal text-sm leading-[18px] ml-2">JavaScript</span>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </div> */}
-            </div>
-          )}
+              );
+            })}
+          </div>
 
           <div>
             <Card>
