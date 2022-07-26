@@ -1,11 +1,36 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Briefcase, Folder, GitBranch, Github, Globe, Instagram, LinkedIn, Mail, MapPin, Star, Twitter } from '../components/Icons';
+import {
+  Bootstrap,
+  Briefcase,
+  Cplusplus,
+  Csharp,
+  Css3,
+  Firebase,
+  Folder,
+  Git,
+  GitBranch,
+  Github,
+  GithubLogo,
+  Globe,
+  Html5,
+  Instagram,
+  Javascript,
+  LinkedIn,
+  Mail,
+  MapPin,
+  Nextjs,
+  Nodejs,
+  Python,
+  Reactjs,
+  Star,
+  Tailwind,
+  Twitter,
+} from '../components/Icons';
 import { Card } from '../components/Card';
 import { LinkCardItem } from '../components/LinkCardItem';
 import { Badge } from '../components/Badge';
-import { gql, useQuery } from '@apollo/client';
 import { useGetGithubApiQuery } from '../graphql/generated';
 
 interface ProfileData {
@@ -94,23 +119,23 @@ export function Home() {
   const profile = data?.viewer;
   console.log(data?.viewer);
 
-  const handleProfile = async () => {
-    const config = {
-      headers: { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` },
-    };
-    // const user = await axios.get<ProfileData>('https://api.github.com/users/birobirobiro', config);
-    const user = await axios.get('https://api.github.com/user', config);
-    // const repos = await axios.get('https://api.github.com/users/birobirobiro/repos', config);
-    const repos = await axios.get('https://api.github.com/user/repos', config);
+  // const handleProfile = async () => {
+  //   const config = {
+  //     headers: { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` },
+  //   };
+  //   // const user = await axios.get<ProfileData>('https://api.github.com/users/birobirobiro', config);
+  //   const user = await axios.get('https://api.github.com/user', config);
+  //   // const repos = await axios.get('https://api.github.com/users/birobirobiro/repos', config);
+  //   const repos = await axios.get('https://api.github.com/user/repos', config);
 
-    // setProfile(user.data);
-    console.log(user.data);
-    console.log(repos.data);
-  };
+  //   // setProfile(user.data);
+  //   console.log(user.data);
+  //   console.log(repos.data);
+  // };
 
-  useEffect(() => {
-    handleProfile();
-  }, []);
+  // useEffect(() => {
+  //   handleProfile();
+  // }, []);
 
   return (
     <div>
@@ -149,47 +174,35 @@ export function Home() {
 
           <div>
             <Card>
-              <h1 className="text-xl leading-[25px] font-bold ml-[-10px]">Tecnologias</h1>
-              <div className="grid grid-cols-3 justify-items-center gap-[15px] mt-5">
-                <Badge text="javascript" />
-                <Badge text="reactjs" />
-                <Badge text="nodejs" />
-                <Badge text="git" />
-                <Badge text="github" />
-                <Badge text="html" />
-                <Badge text="css" />
-                <Badge text="elixir" />
-                <Badge text="react native" />
+              <h1 className="text-xl leading-[25px] font-bold ml-[-10px]">Technologies</h1>
+              <div className="grid grid-cols-4 justify-items-center gap-[15px] mt-5">
+                <Badge icon={<Nodejs />} text="Node.JS" />
+                <Badge icon={<Javascript />} text="JavaScript" />
+                <Badge icon={<Html5 />} text="HTML5" />
+                <Badge icon={<Css3 />} text="CSS3" />
+                <Badge icon={<Reactjs />} text="ReactJS" />
+                <Badge icon={<Nextjs />} text="NextJS" />
+                <Badge icon={<Git />} text="Git" />
+                <Badge icon={<GithubLogo />} text="Github" />
+                <Badge icon={<Firebase />} text="Firebase" />
+                <Badge icon={<Tailwind />} text="Tailwind" />
+                <Badge icon={<Bootstrap />} text="Bootstrap" />
+                <Badge icon={<Cplusplus />} text="C++" />
+                <Badge icon={<Csharp />} text="C#" />
+                <Badge icon={<Python />} text="Python" />
+                {/* <Badge icon={<Javascript />} text="react native" /> */}
               </div>
             </Card>
           </div>
 
           <div>
             <Card>
-              <h1 className="text-xl leading-[25px] font-bold ml-[-10px]">Experiências</h1>
+              <h1 className="text-xl leading-[25px] font-bold ml-[-10px]">Experiencies</h1>
               <ul className="list-disc pl-[30px] mt-5 flex flex-col gap-[15px]">
                 <li>
-                  <p className="font-bold text-sm leading-[18px]">Rocketseat</p>
-                  <p className="font-light text-xs leading-[15px]">2019 - Atualmente</p>
-                  <p className="font-normal text-xs leading-[15px]">Community Experience</p>
-                </li>
-
-                <li>
-                  <p className="font-bold text-sm leading-[18px]">Rocketseat</p>
-                  <p className="font-light text-xs leading-[15px]">2019 - Atualmente</p>
-                  <p className="font-normal text-xs leading-[15px]">Community Experience</p>
-                </li>
-
-                <li>
-                  <p className="font-bold text-sm leading-[18px]">Rocketseat</p>
-                  <p className="font-light text-xs leading-[15px]">2019 - Atualmente</p>
-                  <p className="font-normal text-xs leading-[15px]">Community Experience</p>
-                </li>
-
-                <li>
-                  <p className="font-bold text-sm leading-[18px]">Rocketseat</p>
-                  <p className="font-light text-xs leading-[15px]">2019 - Atualmente</p>
-                  <p className="font-normal text-xs leading-[15px]">Community Experience</p>
+                  <p className="font-bold text-sm leading-[18px]">Supergeeks</p>
+                  <p className="font-light text-xs leading-[15px]">09/2019 - 01/2020</p>
+                  <p className="font-normal text-xs leading-[15px]">Instrutor JR</p>
                 </li>
               </ul>
             </Card>
@@ -197,30 +210,18 @@ export function Home() {
 
           <div>
             <Card>
-              <h1 className="text-xl leading-[25px] font-bold ml-[-10px]">Educação</h1>
+              <h1 className="text-xl leading-[25px] font-bold ml-[-10px]">Education</h1>
               <ul className="list-disc pl-[30px] mt-5 flex flex-col gap-[15px]">
                 <li>
-                  <p className="font-bold text-sm leading-[18px]">Rocketseat</p>
-                  <p className="font-light text-xs leading-[15px]">2019 - 2019</p>
-                  <p className="font-normal text-xs leading-[15px]">GoStack</p>
+                  <p className="font-bold text-sm leading-[18px]">Engenharia da Computação</p>
+                  <p className="font-light text-xs leading-[15px]">2014 - 2018</p>
+                  <p className="font-normal text-xs leading-[15px]">FIAP</p>
                 </li>
 
                 <li>
-                  <p className="font-bold text-sm leading-[18px]">Rocketseat</p>
-                  <p className="font-light text-xs leading-[15px]">2019 - 2020</p>
-                  <p className="font-normal text-xs leading-[15px]">Ignite</p>
-                </li>
-
-                <li>
-                  <p className="font-bold text-sm leading-[18px]">Rocketseat</p>
-                  <p className="font-light text-xs leading-[15px]">2019 - 2021</p>
-                  <p className="font-normal text-xs leading-[15px]">Ignite Pro</p>
-                </li>
-
-                <li>
-                  <p className="font-bold text-sm leading-[18px]">Rocketseat</p>
-                  <p className="font-light text-xs leading-[15px]">2019 - 2021</p>
-                  <p className="font-normal text-xs leading-[15px]">Ignite Pro</p>
+                  <p className="font-bold text-sm leading-[18px]">Técnico em Mecatrônica</p>
+                  <p className="font-light text-xs leading-[15px]">2012 - 2013</p>
+                  <p className="font-normal text-xs leading-[15px]">ETEC Martin Luther King</p>
                 </li>
               </ul>
             </Card>
@@ -232,8 +233,8 @@ export function Home() {
             <Card>
               <div className="flex justify-between items-center">
                 <h1 className="font-bold text-xl leading-[25px]">My Projects</h1>
-                <Link className="font-normal text-sm leading-[18px]" to="#">
-                  Veja todos
+                <Link className="font-normal text-sm leading-[18px]" to="/projects">
+                  See all
                 </Link>
               </div>
             </Card>
@@ -289,54 +290,11 @@ export function Home() {
               );
             })}
           </div>
-
-          <div>
-            <Card>
-              <div className="flex items-center">
-                <h1 className="font-bold text-xl leading-[25px]">Recent Posts</h1>
-              </div>
-            </Card>
-          </div>
-
-          <div>
-            <Card>
-              <div className="flex flex-wrap sm:flex-nowrap pb-3 gap-5">
-                <img
-                  className="rounded-full max-h-32 max-w-32"
-                  src="https://avatars.githubusercontent.com/u/22185823?v=4"
-                  // src="https://avatars.githubusercontent.com/u/90021751?v=4"
-                  alt="profile picture"
-                />
-
-                <div className="flex flex-col gap-7">
-                  <div className="flex flex-col">
-                    <span className="font-bold text-lg leading-[23px] min-h-[31px]">
-                      {'Erro adb devices no Genymotion e Android Studio (React Native)'}
-                    </span>
-                    <span className="font-normal text-sm leading-[18px]">2 anos atrás</span>
-                  </div>
-
-                  <div className="flex flex-col gap-[11px]">
-                    <span className="font-normal text-base leading-5">{'Erro adb devices no Genymotion e Android Studio (React Native)'}</span>
-
-                    <div className="flex flex-wrap gap-[10px] text-sm leading-[18px] font-normal whitespace-nowrap">
-                      <span>#react-native</span>
-                      <span>#genimotion</span>
-                      <span>#genimotion</span>
-                      <span>#genimotion</span>
-                      <span>#genimotion</span>
-                      <span>#genimotion</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
         </div>
       </div>
 
       <div className="p-5 text-center">
-        <p className="text-sm leading-5">Feito com 💜 por {profile?.login}</p>
+        <p className="text-sm leading-5">Made by {profile?.login}</p>
       </div>
     </div>
   );

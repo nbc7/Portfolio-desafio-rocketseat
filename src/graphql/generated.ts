@@ -26353,7 +26353,7 @@ export type WorkflowRunPendingDeploymentRequestsArgs = {
 export type GetGithubApiQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetGithubApiQuery = { __typename?: 'Query', viewer: { __typename?: 'User', login: string, name?: string | null, company?: string | null, email: string, twitterUsername?: string | null, location?: string | null, bio?: string | null, avatarUrl: any, websiteUrl?: any | null, pinnedItems: { __typename?: 'PinnableItemConnection', nodes?: Array<{ __typename?: 'Gist' } | { __typename?: 'Repository', id: string, name: string, description?: string | null, forkCount: number, stargazerCount: number, primaryLanguage?: { __typename?: 'Language', color?: string | null, name: string } | null } | null> | null } } };
+export type GetGithubApiQuery = { __typename?: 'Query', viewer: { __typename?: 'User', login: string, name?: string | null, company?: string | null, email: string, twitterUsername?: string | null, location?: string | null, bio?: string | null, avatarUrl: any, websiteUrl?: any | null, pinnedItems: { __typename?: 'PinnableItemConnection', nodes?: Array<{ __typename?: 'Gist' } | { __typename?: 'Repository', id: string, name: string, description?: string | null, forkCount: number, stargazerCount: number, primaryLanguage?: { __typename?: 'Language', color?: string | null, name: string } | null } | null> | null }, repositories: { __typename?: 'RepositoryConnection', nodes?: Array<{ __typename?: 'Repository', id: string, name: string, description?: string | null, forkCount: number, stargazerCount: number, primaryLanguage?: { __typename?: 'Language', color?: string | null, name: string } | null } | null> | null } } };
 
 
 export const GetGithubApiDocument = gql`
@@ -26380,6 +26380,23 @@ export const GetGithubApiDocument = gql`
             color
             name
           }
+        }
+      }
+    }
+    repositories(
+      last: 100
+      privacy: PUBLIC
+      orderBy: {field: CREATED_AT, direction: DESC}
+    ) {
+      nodes {
+        id
+        name
+        description
+        forkCount
+        stargazerCount
+        primaryLanguage {
+          color
+          name
         }
       }
     }
