@@ -234,7 +234,7 @@ export function Home() {
               <div className="flex justify-between items-center">
                 <h1 className="font-bold text-xl leading-[25px]">My Projects</h1>
                 <Link className="font-normal text-sm leading-[18px]" to="/projects">
-                  See all
+                  {'See all>'}
                 </Link>
               </div>
             </Card>
