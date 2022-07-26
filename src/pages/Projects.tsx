@@ -7,7 +7,7 @@ export function Projects() {
   // const [profile, setProfile] = useState<ProfileData | null>(null);
   const { data } = useGetGithubApiQuery();
   const profile = data?.viewer;
-  console.log(data?.viewer);
+  // console.log(data?.viewer);
 
   // const handleProfile = async () => {
   //   const config = {
