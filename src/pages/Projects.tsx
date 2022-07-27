@@ -33,7 +33,7 @@ export function Projects() {
             <Card>
               <div className="flex justify-between items-center">
                 <h1 className="font-bold text-xl leading-[25px]">Projects</h1>
-                <Link className="font-normal text-sm leading-[18px]" to="/">
+                <Link className="font-normal text-sm leading-[18px] hover:text-white" to="/">
                   {'<Back'}
                 </Link>
               </div>
@@ -62,7 +62,9 @@ export function Projects() {
 
                         {item.homepageUrl && (
                           <a href={`http://${item.homepageUrl}`} target="_blank">
-                            <NewTab />
+                            <div className="hover:text-white">
+                              <NewTab />
+                            </div>
                           </a>
                         )}
                       </div>

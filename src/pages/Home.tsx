@@ -161,12 +161,12 @@ export function Home() {
                   <div className="flex flex-col gap-5">
                     {profile.location && <LinkCardItem icon={<MapPin />} text={profile.location} />}
                     {profile.company && <LinkCardItem icon={<Briefcase />} text={profile.company} />}
-                    {profile.login && <LinkCardItem icon={<Github />} text={profile.login} />}
+                    {profile.login && <LinkCardItem icon={<Github />} text={profile.login} url={`https://github.com/${profile.login}`} />}
                     {/* <LinkCardItem icon={<LinkedIn />} text="joao-inacio-neto" /> */}
                     {profile.twitterUsername && <LinkCardItem icon={<Twitter />} text={profile.twitterUsername} />}
                     {/* <LinkCardItem icon={<Instagram />} text="birobirobiro" /> */}
-                    {profile.websiteUrl && <LinkCardItem icon={<Globe />} text={profile.websiteUrl} />}
-                    {profile.email && <LinkCardItem icon={<Mail />} text={profile.email} />}
+                    {profile.websiteUrl && <LinkCardItem icon={<Globe />} text={profile.websiteUrl} url={profile.websiteUrl} />}
+                    {profile.email && <LinkCardItem icon={<Mail />} text={profile.email} url={`mailto:${profile.email}`} />}
                   </div>
                 </Card>
               </div>
@@ -234,7 +234,7 @@ export function Home() {
             <Card>
               <div className="flex justify-between items-center">
                 <h1 className="font-bold text-xl leading-[25px]">My Projects</h1>
-                <Link className="font-normal text-sm leading-[18px]" to="/projects">
+                <Link className="font-normal text-sm leading-[18px] hover:text-white" to="/projects">
                   {'See all>'}
                 </Link>
               </div>
@@ -263,7 +263,9 @@ export function Home() {
 
                         {item.homepageUrl && (
                           <a href={`http://${item.homepageUrl}`} target="_blank">
-                            <NewTab />
+                            <div className="hover:text-white">
+                              <NewTab />
+                            </div>
                           </a>
                         )}
                       </div>
