@@ -262,7 +262,7 @@ export function Home() {
                         </div>
 
                         {item.homepageUrl && (
-                          <a href={`http://${item.homepageUrl}`} target="_blank">
+                          <a href={item.homepageUrl.includes('vercel') ? `https://${item.homepageUrl}` : item.homepageUrl} target="_blank">
                             <div className="hover:text-white">
                               <NewTab />
                             </div>
