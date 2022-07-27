@@ -20,6 +20,7 @@ import {
   LinkedIn,
   Mail,
   MapPin,
+  NewTab,
   Nextjs,
   Nodejs,
   Python,
@@ -251,11 +252,20 @@ export function Home() {
                 <div className="w-fill" key={item.id}>
                   <Card>
                     <div className="flex flex-col gap-[22px]">
-                      <div className="flex items-center">
-                        <div>
-                          <Folder />
+                      <div className="flex items-center justify-between">
+                        <div className="flex">
+                          <div>
+                            <Folder />
+                          </div>
+
+                          <strong className="text-base leading-5 font-bold ml-4">{item.name}</strong>
                         </div>
-                        <strong className="text-base leading-5 font-bold ml-4">{item.name}</strong>
+
+                        {item.homepageUrl && (
+                          <a href={`http://${item.homepageUrl}`} target="_blank">
+                            <NewTab />
+                          </a>
+                        )}
                       </div>
 
                       <div className="text-sm leading-5 font-normal">

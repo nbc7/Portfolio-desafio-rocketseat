@@ -21,6 +21,7 @@ query GetGithubApi {
             color
             name
           }
+          homepageUrl
         }
       }
     }
@@ -35,6 +36,7 @@ query GetGithubApi {
           color
           name
         }
+        homepageUrl
       }
     }
   }
