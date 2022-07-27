@@ -105,7 +105,7 @@ export function Projects() {
       </div>
 
       <div className="p-5 text-center">
-        <p className="text-sm leading-5">Feito com 💜 por {profile?.login}</p>
+        <p className="text-sm leading-5">Made by {profile?.login}</p>
       </div>
     </div>
   );
