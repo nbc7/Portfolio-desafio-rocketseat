@@ -258,7 +258,11 @@ export function Home() {
                             <Folder />
                           </div>
 
-                          <strong className="text-base leading-5 font-bold ml-4">{item.name}</strong>
+                          <strong className="text-base leading-5 font-bold ml-4 hover:text-white">
+                            <a href={`https://github.com/${profile?.login}/${item.name}`} target="_blank">
+                              {item.name}
+                            </a>
+                          </strong>
                         </div>
 
                         {item.homepageUrl && (
