@@ -251,31 +251,38 @@ export function Home() {
               return (
                 <div className="w-fill" key={item.id}>
                   <Card>
-                    <div className="flex flex-col gap-[22px]">
-                      <div className="flex items-center justify-between">
-                        <div className="flex">
-                          <div>
-                            <Folder />
+                    <div className="flex flex-col gap-[22px] justify-between h-full">
+                      <div className="flex flex-col justify-between items-start">
+                        <div className="flex items-center justify-between w-full">
+                          <div className="flex items-center">
+                            <div>
+                              <Folder />
+                            </div>
+
+                            <strong className="text-base leading-5 font-bold ml-4 hover:text-white">
+                              <a href={`https://github.com/${profile?.login}/${item.name}`} target="_blank">
+                                {item.name}
+                              </a>
+                            </strong>
                           </div>
 
-                          <strong className="text-base leading-5 font-bold ml-4 hover:text-white">
-                            <a href={`https://github.com/${profile?.login}/${item.name}`} target="_blank">
-                              {item.name}
+                          {item.homepageUrl && (
+                            <a
+                              className="ml-4"
+                              href={item.homepageUrl.includes('vercel') ? `https://${item.homepageUrl}` : item.homepageUrl}
+                              target="_blank"
+                            >
+                              <div className="flex gap-1 text-xs items-center hover:text-white">
+                                <span>preview</span>
+                                <NewTab />
+                              </div>
                             </a>
-                          </strong>
+                          )}
                         </div>
 
-                        {item.homepageUrl && (
-                          <a href={item.homepageUrl.includes('vercel') ? `https://${item.homepageUrl}` : item.homepageUrl} target="_blank">
-                            <div className="hover:text-white">
-                              <NewTab />
-                            </div>
-                          </a>
-                        )}
-                      </div>
-
-                      <div className="text-sm leading-5 font-normal">
-                        <p>{item.description}</p>
+                        <div className="mt-3 text-sm leading-5 font-normal">
+                          <p>{item.description}</p>
+                        </div>
                       </div>
 
                       <div className="flex flex-wrap justify-between gap-4">
