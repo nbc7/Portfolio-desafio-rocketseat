@@ -162,9 +162,9 @@ export function Home() {
                     {profile.location && <LinkCardItem icon={<MapPin />} text={profile.location} />}
                     {profile.company && <LinkCardItem icon={<Briefcase />} text={profile.company} />}
                     {profile.login && <LinkCardItem icon={<Github />} text={profile.login} url={`https://github.com/${profile.login}`} />}
-                    {/* <LinkCardItem icon={<LinkedIn />} text="joao-inacio-neto" /> */}
+                    {/* <LinkCardItem icon={<LinkedIn />} text="" /> */}
                     {profile.twitterUsername && <LinkCardItem icon={<Twitter />} text={profile.twitterUsername} />}
-                    {/* <LinkCardItem icon={<Instagram />} text="birobirobiro" /> */}
+                    {/* <LinkCardItem icon={<Instagram />} text="" /> */}
                     {profile.websiteUrl && <LinkCardItem icon={<Globe />} text={profile.websiteUrl} url={profile.websiteUrl} />}
                     {profile.email && <LinkCardItem icon={<Mail />} text={profile.email} url={`mailto:${profile.email}`} />}
                   </div>
